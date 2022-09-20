@@ -47,4 +47,8 @@ module "lambda_function" {
   tags = {
     Name = "hello_go"
   }
+
+  depends_on = [
+    data.archive_file.lambda_go_zip
+  ]
 }
