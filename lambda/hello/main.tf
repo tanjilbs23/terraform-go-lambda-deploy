@@ -12,7 +12,7 @@ resource "null_resource" "lambda_build" {
   }
 }
 
-# Zipping Lambda package
+# Zip Lambda package
 
 data "archive_file" "lambda_go_zip" {
 
