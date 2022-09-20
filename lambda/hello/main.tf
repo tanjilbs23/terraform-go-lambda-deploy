@@ -24,29 +24,29 @@ data "archive_file" "lambda_go_zip" {
   ]
 }
 
-# Lambda Module
-module "lambda_function" {
-  source        = "terraform-aws-modules/lambda/aws"
-  function_name = "hello"
-  description   = "testing go function"
-  handler       = "hello.lambda_handler"
-  runtime       = "go1.x"
+# # Lambda Module
+# module "lambda_function" {
+#   source        = "terraform-aws-modules/lambda/aws"
+#   function_name = "hello"
+#   description   = "testing go function"
+#   handler       = "hello.lambda_handler"
+#   runtime       = "go1.x"
 
-  create_package          = false
-  local_existing_package  = "lambda/hello/bin/hello.zip"
-  # ignore_source_code_hash = true
+#   create_package          = false
+#   local_existing_package  = "lambda/hello/bin/hello.zip"
+#   # ignore_source_code_hash = true
 
-  # source_path = "lambda/hello/bin"
-  trusted_entities = [
-    {
-      type = "Service",
-      identifiers = [
-        "appsync.amazonaws.com"
-      ]
-    }
-  ]
+#   # source_path = "lambda/hello/bin"
+#   trusted_entities = [
+#     {
+#       type = "Service",
+#       identifiers = [
+#         "appsync.amazonaws.com"
+#       ]
+#     }
+#   ]
 
-  tags = {
-    Name = "hello_go"
-  }
-}
+#   tags = {
+#     Name = "hello_go"
+#   }
+# }
