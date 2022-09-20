@@ -2,7 +2,7 @@
 
 resource "null_resource" "lambda_build" {
   provisioner "local-exec" {
-    command = "cd ${path.module}/src && env GOOS=linux GOARCH=amd64 go build -o ../bin/hello"
+    command = "cd ${path.module}/src && env GOOS=linux GOARCH=amd64 go build -o ${path.module}/bin/hello"
   }
 }
 
