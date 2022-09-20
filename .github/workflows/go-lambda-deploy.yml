@@ -26,6 +26,7 @@ jobs:
         shell: bash
 
     steps:
+   # Setting up go
     - uses: actions/setup-go@v3
       with:
         stable: 'true'
