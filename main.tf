@@ -8,7 +8,19 @@ terraform {
   }
 }
 
-provider "aws" {}
+# terraform {
+#   required_providers {
+#     aws = {
+#       source = "hashicorp/aws"
+#       version = "4.31.0"
+#     }
+#   }
+# }
+
+# provider "aws" {
+#   region = "eu-west-1"
+#   profile = "personal"
+# }
 
 module "hello" {
   source = "./lambda/hello"
