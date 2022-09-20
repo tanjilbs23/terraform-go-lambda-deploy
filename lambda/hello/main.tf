@@ -1,24 +1,21 @@
 # Building GO Lambda
 
-# resource "null_resource" "lambda_build" {
-#   provisioner "local-exec" {
-#     command = "cd ${path.module}/src && env GOOS=linux GOARCH=amd64 go build -o ${path.module}/bin/hello"
-#   }
-# }
+resource "null_resource" "lambda_build" {
+  provisioner "local-exec" {
+    command = "cd ${path.module}/src && env GOOS=linux GOARCH=amd64 go build -o ${path.module}/bin/hello"
+  }
+}
 
 # Zipping Lambda package
 
 data "archive_file" "lambda_go_zip" {
 
-  provisioner "local-exec" {
-    command = "cd ${path.module}/src && env GOOS=linux GOARCH=amd64 go build -o ${path.module}/bin/hello"
-  }
   type        = "zip"
   source_file = "${path.module}/bin/hello"
   output_path = "${path.module}/bin/hello.zip"
-  #   depends_on = [
-  #     null_resource.lambda_build
-  #   ]
+    depends_on = [
+      null_resource.lambda_build
+    ]
 }
 
 # Lambda Module
