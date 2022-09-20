@@ -2,7 +2,7 @@ name: 'Lambda Deploy Dev'
 
 on:
   push:
-    branches: [ dev ]
+    branches: [ main ]
     paths:
         - 'lambda/**'
         - 'dynamodb/**'
