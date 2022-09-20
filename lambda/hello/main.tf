@@ -29,6 +29,6 @@ module "lambda_function" {
   ]
 
     tags = {
-        Name = "hello"
+        Name = "hello_go"
     }
 }
