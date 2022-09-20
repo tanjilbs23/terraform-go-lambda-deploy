@@ -1,8 +1,14 @@
 # Building GO Lambda
 
 resource "null_resource" "lambda_build" {
+  # triggers = {
+  #   always_run = "${timestamp()}"
+  # }
+  triggers = {
+    on_every_apply = uuid()
+  }
   provisioner "local-exec" {
-    command = "cd ${path.module}/src && env GOOS=linux GOARCH=amd64 go build -o ${path.module}/bin/hello"
+    command = "cd ${path.module}/src && env GOOS=linux GOARCH=amd64 go build -o ../bin/hello"
   }
 }
 
@@ -13,9 +19,9 @@ data "archive_file" "lambda_go_zip" {
   type        = "zip"
   source_file = "${path.module}/bin/hello"
   output_path = "${path.module}/bin/hello.zip"
-    depends_on = [
+  depends_on = [
       null_resource.lambda_build
-    ]
+  ]
 }
 
 # Lambda Module
