@@ -12,8 +12,6 @@ resource "null_resource" "lambda_build" {
   }
 }
 
-# Zip Lambda package
-
 data "archive_file" "lambda_go_zip" {
 
   type        = "zip"
