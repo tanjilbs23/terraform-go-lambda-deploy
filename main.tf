@@ -12,7 +12,7 @@ provider "aws" {}
 
 module "hello" {
   source = "./lambda/hello"
-  # tags   = "dev"
+  tags   = var.tags
 }
 
 
