@@ -10,5 +10,5 @@ terraform {
 
 module "hello" {
   source = "./lambda/hello"
-  tags   = "dev"
+  # tags   = "dev"
 }
