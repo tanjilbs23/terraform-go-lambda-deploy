@@ -30,7 +30,8 @@ module "lambda_function" {
   handler       = "hello.lambda_handler"
   runtime       = "go1.x"
 
-  # create_package         = false
+  create_package         = false
+  create_function        = false
   local_existing_package = "${path.module}/bin/hello.zip"
 
   trusted_entities = [
