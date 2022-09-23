@@ -32,6 +32,7 @@ module "lambda_function" {
 
   create_package         = false
   local_existing_package = "${path.module}/bin/hello.zip"
+  maximum_retry_attempts = 2
 
   trusted_entities = [
     {
