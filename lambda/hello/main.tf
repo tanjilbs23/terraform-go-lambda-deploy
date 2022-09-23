@@ -18,20 +18,21 @@ data "archive_file" "lambda_go_zip" {
   source_file = "${path.module}/bin/hello"
   output_path = "${path.module}/bin/hello.zip"
   depends_on = [
-      null_resource.lambda_build
+    null_resource.lambda_build
   ]
 }
 
 # Lambda Module
 module "lambda_function" {
   source        = "terraform-aws-modules/lambda/aws"
+  version       = "4.0.1"
   function_name = "hello"
   description   = "testing go function"
   handler       = "hello.lambda_handler"
   runtime       = "go1.x"
 
-  create_package          = false
-  local_existing_package  = "${path.module}/bin/hello.zip"
+  create_package         = false
+  local_existing_package = "${path.module}/bin/hello.zip"
 
   trusted_entities = [
     {
@@ -43,7 +44,7 @@ module "lambda_function" {
   ]
 
   tags = {
-    Name =var.tags
+    Name = var.tags
   }
 
   depends_on = [
