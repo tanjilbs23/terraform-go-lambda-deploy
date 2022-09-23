@@ -13,7 +13,7 @@ provider "aws" {
 
 module "hello" {
   source = "./lambda/hello"
-  tags   = "test"
+  tags   = "dev"
 }
 
 
