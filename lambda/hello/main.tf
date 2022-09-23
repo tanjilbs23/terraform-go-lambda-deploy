@@ -44,7 +44,7 @@ module "lambda_function" {
   ]
 
   tags = {
-    Name = "dev"
+    Name = var.tags
   }
 
   depends_on = [

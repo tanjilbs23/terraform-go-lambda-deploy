@@ -1,4 +1,4 @@
-# variable "tags" {
-#   type        = string
-#   description = "lambda tag"
-# }
+variable "tags" {
+  type        = string
+  description = "lambda tag"
+}
