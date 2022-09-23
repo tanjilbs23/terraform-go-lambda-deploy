@@ -6,9 +6,9 @@ terraform {
       name = "terraform-go-lambda-deploy"
     }
   }
-    required_providers {
+  required_providers {
     aws = {
-      source = "hashicorp/aws"
+      source  = "hashicorp/aws"
       version = "4.30.0"
     }
   }
