@@ -8,12 +8,11 @@ terraform {
   }
 }
 
-provider "aws" {
-}
+provider "aws" {}
 
 module "hello" {
   source = "./lambda/hello"
-  tags   = "dev"
+  # tags   = "dev"
 }
 
 

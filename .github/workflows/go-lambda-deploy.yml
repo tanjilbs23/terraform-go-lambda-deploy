@@ -61,3 +61,5 @@ jobs:
     - name: Terraform Apply
       run: terraform apply -auto-approve -input=false "lambda.tfplan"
       working-directory: ${{ env.ROOT_PATH }}
+      env:
+        TF_VAR_tags: ${{ secrets.TAGS }}
