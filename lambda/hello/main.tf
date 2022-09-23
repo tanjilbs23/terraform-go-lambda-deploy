@@ -31,7 +31,6 @@ module "lambda_function" {
   runtime       = "go1.x"
 
   create_package         = false
-  create_function        = false
   local_existing_package = "${path.module}/bin/hello.zip"
 
   trusted_entities = [
