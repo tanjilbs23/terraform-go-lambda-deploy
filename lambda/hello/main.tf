@@ -1,5 +1,3 @@
-# Building GO Lambda
-
 resource "null_resource" "lambda_build" {
   # triggers = {
   #   always_run = "${timestamp()}"
