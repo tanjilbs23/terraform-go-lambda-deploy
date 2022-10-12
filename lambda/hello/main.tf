@@ -30,7 +30,7 @@ data "archive_file" "lambda_go_zip" {
 module "lambda_function" {
   source        = "terraform-aws-modules/lambda/aws"
   function_name = data.archive_file.lambda_go_zip.output_path
-  source_code_hash = data.archive_file.lambda_go_zip.output_base64sha256
+  # source_code_hash = data.archive_file.lambda_go_zip.output_base64sha256
   description   = "testing go function"
   handler       = "handler.lambda_handler"
   runtime       = "go1.x"
