@@ -16,15 +16,15 @@
 #   }
 # }
 
-# data "archive_file" "lambda_go_zip" {
+data "archive_file" "lambda_go_zip" {
 
-#   type        = "zip"
-#   source_file = "${path.module}/bin/handler"
-#   output_path = "${path.module}/bin/handler.zip"
-#   depends_on = [
-#     null_resource.lambda_build
-#   ]
-# }
+  type        = "zip"
+  source_file = "${path.module}/bin/handler"
+  output_path = "${path.module}/bin/handler.zip"
+  # depends_on = [
+  #   null_resource.lambda_build
+  # ]
+}
 
 # Lambda Module
 module "lambda_function" {
@@ -51,7 +51,7 @@ module "lambda_function" {
     Name = var.tags
   }
 
-  # depends_on = [
-  #   data.archive_file.lambda_go_zip
-  # ]
+  depends_on = [
+    data.archive_file.lambda_go_zip
+  ]
 }

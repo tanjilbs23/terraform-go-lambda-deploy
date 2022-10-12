@@ -174,12 +174,12 @@ type TransactionTableModel struct {
 
 type TicketTableModel struct {
 	TripId        string  `json:"trip_id" binding:"required"`
-	TicketId      string  `json:"ticket_id"` //uuid.hex
+	TicketId      string  `json:"ticket_id"` 
 	TicketPrice   float64 `json:"ticket_price"`
 	Sequence      int     `json:"sequence"`
-	Status        string  `json:"status"`        //BLOCKED/AVAIALBLE/CACELLED/PENDING
-	BlockTimeout  int     `json:"block_timeout"` //current_time+10mins
-	Requester     string  `json:"requester"`     //cognito id
+	Status        string  `json:"status"`        
+	BlockTimeout  int     `json:"block_timeout"` 
+	Requester     string  `json:"requester"`     
 	ContactPerson struct {
 		Name  string `json:"name"`
 		Phone string `json:"phone"`
@@ -210,9 +210,7 @@ func main() {
 	}
 	accessTokenResponse, _ = getAccessToken() //Access Token
 
-	// Initialize a session that the SDK will use to load
-	// credentials from the shared credentials file ~/.aws/credentials
-	// and region from the shared configuration file ~/.aws/config
+
 	session := session.Must(session.NewSessionWithOptions(session.Options{
 		SharedConfigState: session.SharedConfigEnable,
 	}))
