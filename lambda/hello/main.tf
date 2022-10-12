@@ -1,10 +1,10 @@
 resource "null_resource" "lambda_build" {
-  # triggers = {
-  #   always_run = "${timestamp()}"
-  # }
   triggers = {
-    on_every_apply = uuid()
+    always_run = "${timestamp()}"
   }
+  # triggers = {
+  #   on_every_apply = uuid()
+  # }
   provisioner "local-exec" {
     command = "cd ${path.module}/src && env GOOS=linux GOARCH=amd64 go build -o ../bin/hello"
   }
