@@ -26,7 +26,7 @@ resource "null_resource" "lambda_build" {
 #   ]
 # }
 
-# Lambda Module
+
 module "lambda_function" {
   source        = "terraform-aws-modules/lambda/aws"
   function_name = "handler"
