@@ -12,7 +12,7 @@ resource "null_resource" "lambda_build" {
   #   })
   # }
   provisioner "local-exec" {
-    command = "cd ${path.module}/src && go build -o ../bin/handler && cd ../bin/ && zip handler.zip handler"
+    command = "cd ${path.module}/src && go build -o ../bin/handler && cd ../bin && ls -la && zip handler.zip handler && ls -la"
   }
 }
 
@@ -50,6 +50,10 @@ module "lambda_function" {
   tags = {
     Name = var.tags
   }
+
+  depends_on = [
+    null_resource.lambda_build
+  ]
 
   # depends_on = [
   #   data.archive_file.lambda_go_zip
