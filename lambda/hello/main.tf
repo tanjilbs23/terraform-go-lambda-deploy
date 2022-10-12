@@ -12,19 +12,19 @@ resource "null_resource" "lambda_build" {
     })
   }
   provisioner "local-exec" {
-    command = "cd ${path.module}/src && go build -o ../bin/handler"
+    command = "cd ${path.module}/src && go build -o ../bin/handler && cd ../bin/ && zip handler.zip handler"
   }
 }
 
-data "archive_file" "lambda_go_zip" {
+# data "archive_file" "lambda_go_zip" {
 
-  type        = "zip"
-  source_file = "${path.module}/bin/handler"
-  output_path = "${path.module}/bin/handler.zip"
-  depends_on = [
-    null_resource.lambda_build
-  ]
-}
+#   type        = "zip"
+#   source_file = "${path.module}/bin/handler"
+#   output_path = "${path.module}/bin/handler.zip"
+#   depends_on = [
+#     null_resource.lambda_build
+#   ]
+# }
 
 # Lambda Module
 module "lambda_function" {
@@ -51,7 +51,7 @@ module "lambda_function" {
     Name = var.tags
   }
 
-  depends_on = [
-    data.archive_file.lambda_go_zip
-  ]
+  # depends_on = [
+  #   data.archive_file.lambda_go_zip
+  # ]
 }
