@@ -31,6 +31,10 @@ module "lambda_function" {
   create_package         = false
   local_existing_package = "${path.module}/bin/handler.zip"
 
+  # 
+  ignore_source_code_hash = true
+  # 
+
   trusted_entities = [
     {
       type = "Service",
