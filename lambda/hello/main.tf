@@ -1,29 +1,29 @@
-# resource "null_resource" "lambda_build" {
-#   # triggers = {
-#   #   always_run = "${timestamp()}"
-#   # }
-#   # triggers = {
-#   #   on_every_apply = uuid()
-#   # }
-#   triggers = {
-#     file_hashes = jsonencode({
-#       for fn in fileset("${path.module}/src", "**") :
-#       fn => filesha256("${path.module}/src/${fn}")
-#     })
-#   }
-#   provisioner "local-exec" {
-#     command = "cd ${path.module}/src && env GOOS=linux GOARCH=amd64 go build -o ../bin/handler"
-#   }
-# }
+resource "null_resource" "lambda_build" {
+  # triggers = {
+  #   always_run = "${timestamp()}"
+  # }
+  triggers = {
+    on_every_apply = uuid()
+  }
+  # triggers = {
+  #   file_hashes = jsonencode({
+  #     for fn in fileset("${path.module}/src", "**") :
+  #     fn => filesha256("${path.module}/src/${fn}")
+  #   })
+  # }
+  provisioner "local-exec" {
+    command = "cd ${path.module}/src && go build -o ../bin/handler"
+  }
+}
 
 data "archive_file" "lambda_go_zip" {
 
   type        = "zip"
   source_file = "${path.module}/bin/handler"
   output_path = "${path.module}/bin/handler.zip"
-  # depends_on = [
-  #   null_resource.lambda_build
-  # ]
+  depends_on = [
+    null_resource.lambda_build
+  ]
 }
 
 # Lambda Module
