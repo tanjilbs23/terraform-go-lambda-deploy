@@ -5,12 +5,12 @@ resource "null_resource" "lambda_build" {
   # triggers = {
   #   on_every_apply = uuid()
   # }
-  # triggers = {
-  #   file_hashes = jsonencode({
-  #     for fn in fileset("${path.module}/src", "**") :
-  #     fn => filesha256("${path.module}/src/${fn}")
-  #   })
-  # }
+  triggers = {
+    file_hashes = jsonencode({
+      for fn in fileset("${path.module}/src", "**") :
+      fn => filesha256("${path.module}/src/${fn}")
+    })
+  }
   provisioner "local-exec" {
     command = "cd ${path.module}/src && go build -o ../bin/handler && cd ../bin && ls -la && zip handler.zip handler && ls -la"
   }
