@@ -32,7 +32,7 @@ module "lambda_function" {
   local_existing_package = "${path.module}/bin/handler.zip"
 
   # 
-  ignore_source_code_hash = true
+  # ignore_source_code_hash = true
   # 
 
   trusted_entities = [
