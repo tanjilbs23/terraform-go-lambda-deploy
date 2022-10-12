@@ -1,7 +1,7 @@
 resource "null_resource" "lambda_build" {
-  triggers = {
-    always_run = "${timestamp()}"
-  }
+  # triggers = {
+  #   always_run = "${timestamp()}"
+  # }
   # triggers = {
   #   on_every_apply = uuid()
   # }
