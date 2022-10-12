@@ -48,8 +48,4 @@ module "lambda_function" {
   depends_on = [
     data.archive_file.lambda_go_zip
   ]
-
-  lifecycle {
-    create_before_destroy = true
-  }
 }
