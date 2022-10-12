@@ -51,7 +51,7 @@ module "lambda_function" {
     Name = var.tags
   }
 
-  depends_on = [
-    data.archive_file.lambda_go_zip
-  ]
+  # depends_on = [
+  #   data.archive_file.lambda_go_zip
+  # ]
 }
