@@ -28,7 +28,7 @@ module "lambda_function" {
   handler       = "handler.lambda_handler"
   runtime       = "go1.x"
 
-  # create_package         = false
+  create_package         = false
   local_existing_package = "${path.module}/bin/handler.zip"
   
 
