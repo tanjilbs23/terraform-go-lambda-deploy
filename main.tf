@@ -14,5 +14,3 @@ module "hello" {
   source = "./lambda/hello"
   tags   = var.tags
 }
-
-

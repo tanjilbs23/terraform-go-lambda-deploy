@@ -493,4 +493,3 @@ func generateTickets(reqData *Event, trip *Trip) {
 	}
 }
 
-// Creating comment

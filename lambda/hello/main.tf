@@ -1,10 +1,16 @@
 resource "null_resource" "lambda_build" {
-  triggers = {
-    always_run = "${timestamp()}"
-  }
+  # triggers = {
+  #   always_run = "${timestamp()}"
+  # }
   # triggers = {
   #   on_every_apply = uuid()
   # }
+  triggers = {
+    file_hashes = jsonencode({
+      for fn in fileset("${path.module}/src", "**") :
+      fn => filesha256("${path.module}/src/${fn}")
+    })
+  }
   provisioner "local-exec" {
     command = "cd ${path.module}/src && env GOOS=linux GOARCH=amd64 go build -o ../bin/handler"
   }
