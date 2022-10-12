@@ -184,9 +184,9 @@ type TicketTableModel struct {
 		Name  string `json:"name"`
 		Phone string `json:"phone"`
 		Email string `json:"email"`
-	} `json:"contact_person"` //cognito profile {name, phone}
-	CreatedAt   int    `json:"created_at"`   //timestamp
-	DownloadURL string `json:"download_url"` //Polling data from Vipps
+	} `json:"contact_person"` 
+	CreatedAt   int    `json:"created_at"`   
+	DownloadURL string `json:"download_url"`
 }
 
 var svc dynamodb.DynamoDB
