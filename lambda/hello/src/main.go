@@ -245,7 +245,6 @@ func Handler(req json.RawMessage) (InitPaymentResponse, error) {
 			return InitPaymentResponse{}, updateTripErr
 		}
 
-		//! Generate tickets as blocked and insert into ticket table
 		generateTickets(&reqData, &trip)
 	}
 
