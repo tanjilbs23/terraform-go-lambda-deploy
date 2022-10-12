@@ -19,8 +19,8 @@
 data "archive_file" "lambda_go_zip" {
 
   type        = "zip"
-  source_file = "${path.module}/src/"
-  output_path = "${path.module}/src/handler.zip"
+  source_file = "${path.module}/bin/handler"
+  output_path = "${path.module}/bin/handler.zip"
   # depends_on = [
   #   null_resource.lambda_build
   # ]
@@ -29,14 +29,13 @@ data "archive_file" "lambda_go_zip" {
 
 module "lambda_function" {
   source        = "terraform-aws-modules/lambda/aws"
-  function_name = data.archive_file.lambda_go_zip.output_path
-  # source_code_hash = data.archive_file.lambda_go_zip.output_base64sha256
+  function_name = "handler"
   description   = "testing go function"
   handler       = "handler.lambda_handler"
   runtime       = "go1.x"
 
-  # create_package         = false
-  # local_existing_package = "${path.module}/bin/handler.zip"
+  create_package         = false
+  local_existing_package = "${path.module}/bin/handler.zip"
 
   trusted_entities = [
     {
