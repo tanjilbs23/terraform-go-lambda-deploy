@@ -49,7 +49,6 @@ func (l lambdaHander) Run(ctx context.Context, event events.APIGatewayCustomAuth
 	return res, err
 }
 
-// NewLambdaHandler -
 func NewLambdaHandler(
 	randomName string,
 ) *lambdaHander {
