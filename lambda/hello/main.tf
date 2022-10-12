@@ -1,30 +1,30 @@
-resource "null_resource" "lambda_build" {
-  triggers = {
-    always_run = "${timestamp()}"
-  }
-  # triggers = {
-  #   on_every_apply = uuid()
-  # }
-  # triggers = {
-  #   file_hashes = jsonencode({
-  #     for fn in fileset("${path.module}/src", "**") :
-  #     fn => filesha256("${path.module}/src/${fn}")
-  #   })
-  # }
-  provisioner "local-exec" {
-    command = "cd ${path.module}/src && go build -o ${path.module}/bin/handler && cd ${path.module}/bin && ls -la && zip handler.zip handler && ls -la && pwd"
-  }
-}
-
-# data "archive_file" "lambda_go_zip" {
-
-#   type        = "zip"
-#   source_file = "${path.module}/bin/handler"
-#   output_path = "${path.module}/bin/handler.zip"
-#   depends_on = [
-#     null_resource.lambda_build
-#   ]
+# resource "null_resource" "lambda_build" {
+#   triggers = {
+#     always_run = "${timestamp()}"
+#   }
+#   # triggers = {
+#   #   on_every_apply = uuid()
+#   # }
+#   # triggers = {
+#   #   file_hashes = jsonencode({
+#   #     for fn in fileset("${path.module}/src", "**") :
+#   #     fn => filesha256("${path.module}/src/${fn}")
+#   #   })
+#   # }
+#   provisioner "local-exec" {
+#     command = "cd ${path.module}/src && go build -o ${path.module}/bin/handler && cd ${path.module}/bin && ls -la && zip handler.zip handler && ls -la && pwd"
+#   }
 # }
+
+data "archive_file" "lambda_go_zip" {
+
+  type        = "zip"
+  source_file = "${path.module}/bin/handler"
+  output_path = "${path.module}/bin/handler.zip"
+  depends_on = [
+    null_resource.lambda_build
+  ]
+}
 
 
 module "lambda_function" {
@@ -50,11 +50,11 @@ module "lambda_function" {
     Name = var.tags
   }
 
-  depends_on = [
-    null_resource.lambda_build
-  ]
-
   # depends_on = [
-  #   data.archive_file.lambda_go_zip
+  #   null_resource.lambda_build
   # ]
+
+  depends_on = [
+    data.archive_file.lambda_go_zip
+  ]
 }
