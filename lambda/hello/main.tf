@@ -6,15 +6,15 @@ resource "null_resource" "lambda_build" {
   #   on_every_apply = uuid()
   # }
   provisioner "local-exec" {
-    command = "cd ${path.module}/src && env GOOS=linux GOARCH=amd64 go build -o ../bin/hello"
+    command = "cd ${path.module}/src && env GOOS=linux GOARCH=amd64 go build -o ../bin/handler"
   }
 }
 
 data "archive_file" "lambda_go_zip" {
 
   type        = "zip"
-  source_file = "${path.module}/bin/hello"
-  output_path = "${path.module}/bin/hello.zip"
+  source_file = "${path.module}/bin/handler"
+  output_path = "${path.module}/bin/handler.zip"
   depends_on = [
     null_resource.lambda_build
   ]
@@ -23,13 +23,13 @@ data "archive_file" "lambda_go_zip" {
 # Lambda Module
 module "lambda_function" {
   source        = "terraform-aws-modules/lambda/aws"
-  function_name = "hello"
+  function_name = "handler"
   description   = "testing go function"
-  handler       = "hello.lambda_handler"
+  handler       = "handler.lambda_handler"
   runtime       = "go1.x"
 
   create_package         = false
-  local_existing_package = "${path.module}/bin/hello.zip"
+  local_existing_package = "${path.module}/bin/handler.zip"
 
   trusted_entities = [
     {
