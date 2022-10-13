@@ -1,20 +1,20 @@
-resource "null_resource" "lambda_build" {
-  triggers = {
-    always_run = "${timestamp()}"
-  }
-  # triggers = {
-  #   on_every_apply = uuid()
-  # }
-  # triggers = {
-  #   file_hashes = jsonencode({
-  #     for fn in fileset("${path.module}/src", "**") :
-  #     fn => filesha256("${path.module}/src/${fn}")
-  #   })
-  # }
-  provisioner "local-exec" {
-    command = "cd ${path.module}/src && go build -o ../bin/handler"
-  }
-}
+# resource "null_resource" "lambda_build" {
+#   triggers = {
+#     always_run = "${timestamp()}"
+#   }
+#   # triggers = {
+#   #   on_every_apply = uuid()
+#   # }
+#   # triggers = {
+#   #   file_hashes = jsonencode({
+#   #     for fn in fileset("${path.module}/src", "**") :
+#   #     fn => filesha256("${path.module}/src/${fn}")
+#   #   })
+#   # }
+#   provisioner "local-exec" {
+#     command = "cd ${path.module}/src && go build -o ../bin/handler"
+#   }
+# }
 
 data "archive_file" "lambda_go_zip" {
 
