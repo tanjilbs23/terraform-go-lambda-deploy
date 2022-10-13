@@ -41,6 +41,7 @@ module "lambda_function" {
     path = "${path.module}/src"
     commands = [
       "go build -o ../bin/handler"
+      "ls -la"
     ]
   }]
 
