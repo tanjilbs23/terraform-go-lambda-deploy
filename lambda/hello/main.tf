@@ -21,9 +21,9 @@ data "archive_file" "lambda_go_zip" {
   type        = "zip"
   source_file = "${path.module}/bin/handler"
   output_path = "${path.module}/bin/handler.zip"
-  depends_on = [
-    null_resource.lambda_build
-  ]
+  # depends_on = [
+  #   null_resource.lambda_build
+  # ]
 }
 
 
