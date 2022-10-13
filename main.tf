@@ -5,6 +5,13 @@ terraform {
     workspaces {
       name = "terraform-go-lambda-deploy"
     }
+
+  }
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "4.19.0"
+    }
   }
 }
 
@@ -14,3 +21,4 @@ module "hello" {
   source = "./lambda/hello"
   tags   = var.tags
 }
+
