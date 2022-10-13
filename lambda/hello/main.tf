@@ -44,6 +44,7 @@ module "lambda_function" {
       "ls -la"
     ]
   }]
+  local_existing_package = "${path.module}/bin/handler.zip"
 
   trusted_entities = [
     {
