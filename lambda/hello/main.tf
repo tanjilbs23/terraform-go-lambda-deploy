@@ -12,7 +12,7 @@ resource "null_resource" "lambda_build" {
   #   })
   # }
   provisioner "local-exec" {
-    command = "cd ${path.module}/src && go build -o ../bin/handler && cd ${path.module}/bin && ls -la && zip handler.zip handler && ls -la && pwd"
+    command = "cd ${path.module}/src && go build -o ../bin/handler"
   }
 }
 
