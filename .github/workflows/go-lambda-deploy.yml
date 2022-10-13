@@ -55,7 +55,7 @@ jobs:
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       run: terraform plan -input=false -out=lambda.tfplan
-      working-directory: ${{ env.ROOT_PATH }}
+      # working-directory: ${{ env.ROOT_PATH }}
       env:
         TF_VAR_tags: ${{ secrets.TAGS }}
 
