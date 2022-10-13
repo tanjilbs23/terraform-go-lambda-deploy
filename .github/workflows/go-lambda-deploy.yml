@@ -11,30 +11,46 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
   AWS_REGION: ${{ secrets.AWS_REGION }}
   TF_API_TOKEN: ${{secrets.TF_API_TOKEN}}
-  # ROOT_PATH: '${{ github.workspace }}'
+  ROOT_PATH: '${{ github.workspace }}'
 
 permissions:
   contents: read
 
 jobs:
+  # Golang-build:
+  #   name: Golang lambda build
+  #   runs-on: ubuntu-latest
+  #   defaults:
+  #     run:
+  #       shell: bash
+  #   steps:
+  #  # Setting up Go for running build
+  #   - name: Setup Golang
+  #     uses: actions/setup-go@v3
+  #     with:
+  #       go-version: '>=1.17.0'
+  #     working-directory: ${{ env.ROOT_PATH }}
+  #     run: |
+  #       cd 'lambda/hello/src && go build -o ../bin/handler
+
   terraform:
     name: 'Terraform-GO-Lambda'
     runs-on: ubuntu-latest
-
     defaults:
       run:
         shell: bash
 
     steps:
+    - name: Checkout
+      uses: actions/checkout@v3
    # Setting up Go for running build
     - name: Setup Golang
       uses: actions/setup-go@v3
       with:
         go-version: '>=1.17.0'
-    # - run: go run hello.go
-    # Checkout the repository to the GitHub Actions runner
-    - name: Checkout
-      uses: actions/checkout@v3
+      working-directory: ${{ env.ROOT_PATH }}
+      run: |
+        cd 'lambda/hello/src && go build -o ../bin/handler
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
@@ -45,17 +61,17 @@ jobs:
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
       run: terraform init
-      # working-directory: ${{ env.ROOT_PATH }}
+      working-directory: ${{ env.ROOT_PATH }}
 
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
       run: terraform fmt -check
-      # working-directory: ${{ env.ROOT_PATH }}
+      working-directory: ${{ env.ROOT_PATH }}
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       run: terraform plan -input=false -out=lambda.tfplan
-      # working-directory: ${{ env.ROOT_PATH }}
+      working-directory: ${{ env.ROOT_PATH }}
       env:
         TF_VAR_tags: ${{ secrets.TAGS }}
 
@@ -63,6 +79,6 @@ jobs:
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
       run: terraform apply -auto-approve -input=false "lambda.tfplan"
-      # working-directory: ${{ env.ROOT_PATH }}
+      working-directory: ${{ env.ROOT_PATH }}
       env:
         TF_VAR_tags: ${{ secrets.TAGS }}
