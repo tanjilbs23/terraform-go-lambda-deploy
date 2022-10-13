@@ -34,7 +34,7 @@ jobs:
         go-version: '>=1.17.0'
     - name: Build Lambda
       run: |          
-       cd 'lambda/hello/src && go build -o ../bin/handler
+       cd 'lambda/hello/src && go build -o ../bin/handler'
       working-directory: ${{ env.ROOT_PATH }}
 
     - name: Setup Terraform
