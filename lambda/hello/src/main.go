@@ -10,4 +10,4 @@ func main() {
 	lambda.Start(handler.Run)
 }
 
-// Hello World SOme
+// Hello World Sone
