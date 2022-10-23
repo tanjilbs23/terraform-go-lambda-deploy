@@ -16,15 +16,12 @@
 #   }
 # }
 
-# data "archive_file" "lambda_go_zip" {
+data "archive_file" "lambda_go_zip" {
 
-#   type        = "zip"
-#   source_file = "${path.module}/bin/handler"
-#   output_path = "${path.module}/bin/handler.zip"
-#   # depends_on = [
-#   #   null_resource.lambda_build
-#   # ]
-# }
+  type        = "zip"
+  source_file = "${path.module}/bin/handler"
+  output_path = "${path.module}/bin/handler.zip"
+}
 
 
 module "lambda_function" {
@@ -35,16 +32,7 @@ module "lambda_function" {
   runtime       = "go1.x"
 
   create_package         = false
-  # local_existing_package = "${path.module}/bin/handler.zip"
-
-  source_path = [{
-    path = "${path.module}/src"
-    commands = [
-      "go build -o ../bin/handler",
-      "ls -la"
-    ]
-  }]
-  local_existing_package = "${path.module}/src/lambda/hello/bin/handler.zip"
+  local_existing_package = "${path.module}/bin/handler.zip"
 
   trusted_entities = [
     {
@@ -59,11 +47,4 @@ module "lambda_function" {
     Name = var.tags
   }
 
-  # depends_on = [
-  #   null_resource.lambda_build
-  # ]
-
-  # depends_on = [
-  #   data.archive_file.lambda_go_zip
-  # ]
 }
